@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Table from 'react-bootstrap/Table';
-import { wwdScore, waveScore, swpScore } from './Functions';
+import { wwdScore, waveScore, swpScore } from './functions';
 
 
 const containerStyle = {
