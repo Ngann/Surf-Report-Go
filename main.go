@@ -15,6 +15,7 @@ type SurfData struct {
 	WVHT, SwH, SwP, WWH, WWP    float64
 	SwD, WWD, STEEPNESS         string
 	APD, MWD                    float64
+	Count                       int
 }
 
 func main() {
@@ -76,6 +77,7 @@ func surfDataRequest(w http.ResponseWriter, r *http.Request) {
 		STEEPNESS := row[12]
 		APD, _ := strconv.ParseFloat(row[13], 64)
 		MWD, _ := strconv.ParseFloat(row[14], 64)
+		Count := (i - 1)
 		var surfData = SurfData{
 			year,
 			month,
@@ -92,11 +94,12 @@ func surfDataRequest(w http.ResponseWriter, r *http.Request) {
 			STEEPNESS,
 			APD,
 			MWD,
+			Count,
 		}
 
 		allSurfData = append(allSurfData, surfData)
 	}
-	log.Println(allSurfData[0])
+	// log.Println(allSurfData[0])
 
 	// create json data
 	js, err := json.Marshal(allSurfData)
