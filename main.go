@@ -12,6 +12,13 @@ import (
 	// "reflect"
 )
 
+type SurfData struct {
+	Year, Month, Day, Hour, Min int
+	WVHT, SwH, SwP, WWH, WWP    float64
+	SwD, WWD, STEEPNESS         string
+	APD, MWD                    float64
+	Count                       int
+}
 
 // var testRow = `
 // 	2019 04 02 17 00  1.7  1.7 16.0  0.2  3.4 WNW  SW      SWELL  9.6 292
@@ -38,7 +45,7 @@ func main() {
 // fmt.Println(reflect.TypeOf(surf)) is a string
 // fmt.Println(reflect.TypeOf(rows)) is now an array of string because we split the data.
 
-func parseString(data string) {
+func ParseString(data string) {
 	surf := string(data)
 	//to match all leading/trailing whitespac
 	leadSpace := regexp.MustCompile(`^[\s\p{Zs}]+|[\s\p{Zs}]+$`)
@@ -51,4 +58,24 @@ func parseString(data string) {
 	
 }
 
+type Rectangle struct {
+	Width float64
+	Height float64
+}
 
+
+type Circle struct {
+	Radius float64
+}
+
+func Perimeter(rectangle Rectangle) float64 {
+	return 2 * (rectangle.Width + rectangle.Height)
+}
+
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
+func (c Circle) Area() float64 {
+	return math.Pi * c.Radius * c.Radius
+}
