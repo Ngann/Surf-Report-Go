@@ -62,7 +62,7 @@ class App extends Component {
               </tr>
             </thead>
           { this.state.surfData.map(surfDataRow => {
-              if ((surfDataRow.Year == 2019) & (surfDataRow.Month == 3) & (surfDataRow.Day == 29)) {
+              if ((surfDataRow.Year == 2019) & (surfDataRow.Month == 3) & (surfDataRow.Day == 31)) {
                 return (
                   <tbody>
                     <tr>

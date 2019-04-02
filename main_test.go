@@ -1,17 +1,11 @@
 package main
 
 import (
-	// "encoding/json"
-	// "io/ioutil"
-	"log"
-	// "net/http"
+	"testing"
 	"regexp"
-	// "strconv"
 	"strings"
-	// "fmt"
-	// "reflect"
+	"reflect"
 )
-
 
 var testRow = `
 	2019 04 02 17 00  1.7  1.7 16.0  0.2  3.4 WNW  SW      SWELL  9.6 292
@@ -28,25 +22,8 @@ var testString = `
 	2019 04 02 12 00  1.9  1.8 16.0  0.2  3.7 WNW NNW      SWELL 10.5 289
 `
 
-type SurfData struct {
-	Year, Month, Day, Hour, Min int
-	WVHT, SwH, SwP, WWH, WWP    float64
-	SwD, WWD, STEEPNESS         string
-	APD, MWD                    float64
-	Count                       int
-}
-
-func main() {
-	// http.HandleFunc("/", surfDataRequest)
-	// http.ListenAndServe(":3000", nil)
-}
-
-//the httprequest will return a response that is a string
-// fmt.Println(reflect.TypeOf(surf)) is a string
-// fmt.Println(reflect.TypeOf(rows)) is now an array of string because we split the data.
-
-func parseString(data string) {
-	surf := string(data)
+func parseString(t *testing.T) {
+	surf := string(testString)
 	//to match all leading/trailing whitespac
 	leadSpace := regexp.MustCompile(`^[\s\p{Zs}]+|[\s\p{Zs}]+$`)
 	//to match 2 or more whitespace symbols inside a string
@@ -54,8 +31,10 @@ func parseString(data string) {
 	final := leadSpace.ReplaceAllString(surf, "")
 	final = extraSpace.ReplaceAllString(final, " ")
 	rows := strings.Split(final, "\n")
-		log.Println(rows)
-	
-}
+	var dataType []string
 
+	if reflect.TypeOf(rows) !=  reflect.TypeOf(dataType) {
+		t.Errorf("Expected %T, got %T", dataType, rows)
+	}
+}
 
