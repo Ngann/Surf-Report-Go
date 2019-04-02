@@ -22,7 +22,7 @@ var testString = `
 	2019 04 02 12 00  1.9  1.8 16.0  0.2  3.7 WNW NNW      SWELL 10.5 289
 `
 
-func parseString(t *testing.T) {
+func TestParseString(t *testing.T) {
 	surf := string(testString)
 	//to match all leading/trailing whitespac
 	leadSpace := regexp.MustCompile(`^[\s\p{Zs}]+|[\s\p{Zs}]+$`)
