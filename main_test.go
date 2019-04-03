@@ -10,6 +10,17 @@ var testRow = `
 
 var testNewRow = `2019 04 02 17 00 1.7 1.7 16.0 0.2 3.4 WNW SW SWELL 9.6 292`
 
+var testString = `
+	#YY  MM DD hh mm WVHT  SwH  SwP  WWH  WWP SwD WWD  STEEPNESS  APD MWD
+	#yr  mo dy hr mn    m    m  sec    m  sec  -  degT     -      sec degT
+	2019 04 02 17 00  1.7  1.7 16.0  0.2  3.4 WNW  SW      SWELL  9.6 292
+	2019 04 02 16 00  1.8  1.8 14.8  0.2  3.4 WNW NNW      SWELL  9.3 286
+	2019 04 02 15 00  1.7  1.7 16.0  0.2  3.4 WNW NNE      SWELL  9.4 288
+	2019 04 02 14 00  1.5  1.5 13.8  0.2  3.6 WNW NNW      SWELL  9.1 285
+	2019 04 02 13 00  1.7  1.7 17.4  0.2  3.8 WNW NNE      SWELL 10.1 288
+	2019 04 02 12 00  1.9  1.8 16.0  0.2  3.7 WNW NNW      SWELL 10.5 289
+`
+
 func TestRemoveSpacesFromString(t *testing.T) {
 	data := testRow
 	got := removeSpacesFromString(data)
@@ -93,5 +104,27 @@ func TestWaveScore(t *testing.T) {
 
 	if got != want {
 		t.Errorf("got %f want %f", got, want)
+	}
+}
+
+func TestAverageScore(t *testing.T) {
+	wind := 5.0
+	swell := 4.0
+	wave := 1.0
+	got := averageScore(wind, swell, wave)
+	want := 3.33
+
+	if got != want {
+		t.Errorf("got %.2f want %.2f", got, want)
+	}
+}
+
+func TestgetDataFromStringArray(t *testing.T) {
+	data := removeSpaces(testString)
+	got := getDataFromStringArray(data)
+	want := 2.3
+
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
 	}
 }

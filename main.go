@@ -112,3 +112,12 @@ func waveScore(swp, swh float64) float64 {
 		return 1
 	}
 }
+
+func averageScore(wind, swell, wave float64) float64 {
+	average := (wind + swell + wave) / 3
+	return average
+}
+
+func getDataFromStringArray(data string) float64 {
+	return float64(data)
+}
