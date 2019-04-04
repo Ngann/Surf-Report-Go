@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// structs are collection of fields
 type SurfData struct {
 	Year, Month, Day, Hour, Min int
 	WVHT, SwH, SwP, WWH, WWP    float64
@@ -18,12 +19,27 @@ type SurfData struct {
 	Count                       int
 }
 
+// The main function begins with a call to the http.HandleFunc, which tells the http package to handle all request to the web root("/") with function surfDataRequest
+// It then calls the http.ListenAndServe, which specify that is should listen on port 3000.
 func main() {
 	http.HandleFunc("/", surfDataRequest)
 	http.ListenAndServe(":3000", nil)
 }
 
+// The function surfDataRequest is a type of http.HandleFunc, and it takes an http.ResponseWritter and an http.Request as it's arguments.
+// An http.ResponseWriter assembles the HTTP server's response; by writting to it, we send the data to the HTTP client. (What is the http client?)
+// An http.Request is a data structure that represents the client HTTP server's reponse.
+
+//example, below will render the request from function viewHandler on localhost:8080/view/ etc...
+// func main() {
+//     http.HandleFunc("/view/", viewHandler)
+//     http.HandleFunc("/edit/", editHandler)
+//     http.HandleFunc("/save/", saveHandler)
+//     log.Fatal(http.ListenAndServe(":8080", nil))
+// }
+
 func surfDataRequest(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3001")
 	if (*r).Method == "OPTIONS" {
