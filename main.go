@@ -39,9 +39,11 @@ func main() {
 // }
 
 func surfDataRequest(w http.ResponseWriter, r *http.Request) {
-
+	// Set the content-type header so clients know to expect json
+	// Originally when running application on the front end, ran into some CORS issue related to "No 'Access-Control-Allow-Origin", so we set the header to allow access of the data from 3000 to be render on 3001
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3001")
+
 	if (*r).Method == "OPTIONS" {
 		return
 	}
@@ -71,13 +73,16 @@ func surfDataRequest(w http.ResponseWriter, r *http.Request) {
 	final = extraSpace.ReplaceAllString(final, " ")
 	rows := strings.Split(final, "\n")
 
+	// allSurfData is a slice of SurfData
 	var allSurfData []SurfData
 
+	//loop through the rows array and define each variable an value in the row index.
+	// starting the index at 2 because we do not need the first two rows
 	for i := 2; i < 100; i++ {
 		row := strings.Split(rows[i], " ")
-		if len(row) < 2 {
-			continue
-		}
+		// if len(row) < 2 {
+		// 	continue
+		// }
 		year, _ := strconv.Atoi(row[0])
 		month, _ := strconv.Atoi(row[1])
 		day, _ := strconv.Atoi(row[2])
@@ -126,3 +131,5 @@ func surfDataRequest(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(js)
 }
+
+//https://thenewstack.io/make-a-restful-json-api-go/
