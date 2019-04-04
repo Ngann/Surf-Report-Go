@@ -142,3 +142,49 @@ func surfDataRequest(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(js)
 }
+
+func windScore(data string) float64 {
+	if data == "E" {
+		return 5
+	} else if data == "NE" {
+		return 4
+	} else if data == "SE" {
+		return 4
+	} else if data == "S" {
+		return 3
+	} else {
+		return 1
+	}
+}
+
+func swellScore(data float64) float64 {
+	if data >= 16 {
+		return 5
+	} else if data >= 12 {
+		return 4
+	} else if data >= 10 {
+		return 3
+	} else {
+		return 1
+	}
+}
+
+func waveScore(swp, swh float64) float64 {
+	wave := swp * swh
+	if wave > 30 {
+		return 5
+	} else if wave >= 25 {
+		return 4
+	} else if wave >= 20 {
+		return 3
+	} else if wave >= 11 {
+		return 2
+	} else {
+		return 1
+	}
+}
+
+func averageScore(wind, swell, wave float64) float64 {
+	average := (wind + swell + wave) / 3
+	return average
+}
