@@ -38,10 +38,6 @@ type SurfData struct {
 func main() {
 	http.HandleFunc("/", surfDataRequest)
 	http.ListenAndServe(":3000", nil)
-	// a := parseString(sampleString)
-	// b := getSurfData(a)
-	// fmt.Println(b)
-	// fmt.Println(len(b))
 }
 
 func parseString(buoyData string) []string {
